@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp4.Views.ContentsPage"
+             Title="Contents" BackgroundColor="DarkOrchid">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Dashboard"
+                 Clicked="ToolbarItem_Clicked"
+                 />
+    </ContentPage.ToolbarItems>
+    <VerticalStackLayout Spacing="40">
+        <Label 
+            Text=""
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Button
+            x:Name="MovieNavBtn"
+            BackgroundColor="Goldenrod"
+            FontSize="30"
+            WidthRequest="250"
+            Text="Movies"
+            Clicked="MovieNavBtn_Clicked" 
+            HorizontalOptions="Center"/>
+        <Button
+            x:Name="TVShowNavBtn"
+            BackgroundColor="OliveDrab"
+            FontSize="30"
+            WidthRequest="250"
+            Text="TV Shows"
+            Clicked="TVShowNavBtn_Clicked"
+            HorizontalOptions="Center"/>
+        <Button
+            x:Name="GameNavBtn"
+            BackgroundColor="Crimson"
+            FontSize="30"
+            WidthRequest="250"
+            Text="Video Games"
+            Clicked="GameNavBtn_Clicked"
+            HorizontalOptions="Center"/>
+        <ActivityIndicator x:Name="loadingIndicator" IsVisible="False" IsRunning="True" />
+
+        <Image
+            Source="contents.jfif"
+            SemanticProperties.Description="Cute dot net bot waving hi to you!"
+            WidthRequest="250"
+            HeightRequest="250"
+            HorizontalOptions="Center" />
+
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:MauiApp4.ViewModels"
+             xmlns:model="clr-namespace:MauiApp4.Models"
+             x:DataType="viewmodel:MovieViewModel"
+             x:Class="MauiApp4.Views.MoviesPage"
+             x:Name="moviesPage"
+             Title="Movies"
+             BackgroundColor="Goldenrod">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Contents Page"
+                     Clicked="ToolbarItem_Clicked"
+                     />
+    </ContentPage.ToolbarItems>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="80" />
+        </Grid.RowDefinitions>
+
+
+        <SearchBar x:Name="searchBar"
+                   Placeholder="Search Movies"
+                   Text="{Binding SearchText, Mode=TwoWay}"
+                   TextChanged="searchBar_TextChanged"
+                   CancelButtonColor="Red"
+                   VerticalOptions="Center"
+                   Grid.Row="0"/>
+        
+        <CollectionView x:Name="MoviesView"
+                        SelectedItem="{Binding SelectedMovie, Mode=TwoWay}"
+                        ItemsSource="{Binding Movies}"
+                        SelectionMode="Single"
+                        Grid.Row="1">
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate x:DataType="model:Movie">
+
+                    <StackLayout Orientation="Vertical"
+                                 Margin="0"
+                                 Spacing="8">
+
+                        <Label Text="Movie Entry"
+                                FontSize="14"
+                               TextColor="Blue"/>
+
+                        <ScrollView Orientation="Horizontal">
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" WidthRequest="350" Spacing="5">
+                            
+                            <Label Text="Name:" FontSize="16" VerticalOptions="CenterAndExpand" TextColor="Red" />
+                            <Label x:Name="MovieNameEntry"
+                                   Text="{Binding Name}"
+                                   FontSize="16"
+                                   
+                                   WidthRequest="300"
+                                   
+                                   />
+                        </StackLayout>
+                        </ScrollView>
+
+
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" WidthRequest="350" Spacing="5">
+
+                            <Label Text="Rating: " FontSize="16" VerticalOptions="CenterAndExpand" TextColor="DarkRed" />
+                            <Label Text="{Binding Rating}"
+                                   FontSize="16"
+                                   
+                                   
+                                   WidthRequest="80"
+                                   />
+                        </StackLayout>
+
+
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" WidthRequest="350" Spacing="5">
+
+                            <Label Text="Comment: " FontSize="16" VerticalOptions="CenterAndExpand" TextColor="Black" />
+                            <Label Text="{Binding Comment}"
+                                   FontSize="16"
+                                   
+                                   
+                                   WidthRequest="200"/>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" WidthRequest="350" Spacing="5">
+                            <Label Text="Watch date:" FontSize="16" VerticalOptions="CenterAndExpand" TextColor="Black" />
+
+                            <Label Text="{Binding WatchDate, StringFormat='{0:dd/MM/yyyy}'}" FontSize="16"/>
+                        </StackLayout>
+
+                        <Label Text="-----------------------------------------------------------------------------------"
+                                FontSize="14"
+                               TextColor="Blue"/>
+
+                    </StackLayout>
+                    
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <ContentView>
+                    <VerticalStackLayout HorizontalOptions="Center"
+                                             VerticalOptions="Center">
+                        <Label Text="No Movies Found"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   HorizontalTextAlignment="Center"/>
+                        <Label Text="You can use the Add New button below"/>
+                    </VerticalStackLayout>
+                </ContentView>
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+        <BoxView Color="Purple" Grid.Row="2" />
+        
+        <Label Text="{Binding MoviesCountText}" Grid.Row="3" TextColor="DarkGreen" FontSize="18" />
+
+        <StackLayout Orientation="Horizontal" Margin="0"
+                     Spacing="20" Grid.Row="4" IsVisible="True">
+            <Button Text="Add New"
+                    FontSize="18"
+                    BackgroundColor="Aqua"
+                    Clicked="AddNewButton_Clicked"
+                    IsVisible="{Binding AreFirstButtonsVisible}"
+                    HeightRequest="50"
+                    WidthRequest="178"/>
+
+            
+
+            <Button 
+                Text="Recommendations"
+                IsVisible="{Binding AreFirstButtonsVisible}"
+                Clicked="Recommendations_Clicked"
+                HeightRequest="50"
+                WidthRequest="178"
+                ></Button>
+
+            <Button Text="Save"
+                    
+                    FontSize="18"
+                    BackgroundColor="Aqua"
+                    Command="{Binding SaveSelectedCommand}"
+                    IsVisible="False"
+                    WidthRequest="130"
+                    HeightRequest="50"/>    
+
+            
+            <Button Text="Unselect"
+                    BackgroundColor="Tomato"
+                    FontSize="18"
+                    Command="{Binding UnselectCommand}"
+                    IsVisible="{Binding AreButtonsVisible}"
+                    WidthRequest="130"
+                    HeightRequest="50"/>
+            <Button Text="Delete"
+                    FontSize="14"
+                    BackgroundColor="Red"
+                    Command="{Binding DeleteCommand}"
+                    IsVisible="{Binding AreButtonsVisible}"
+                    WidthRequest="80"
+                    HeightRequest="40"/>
+
+        </StackLayout>
+
+        
+            
+        
+                            
+    </Grid>
+
+</ContentPage>

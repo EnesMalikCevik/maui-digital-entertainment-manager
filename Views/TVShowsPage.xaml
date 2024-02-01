@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:MauiApp4.ViewModels"
+             xmlns:model="clr-namespace:MauiApp4.Models"
+             x:DataType="viewmodel:TVShowViewModel"
+             x:Class="MauiApp4.Views.TVShowsPage"
+             Title="TV Shows"
+             BackgroundColor="OliveDrab">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2"/>
+            <RowDefinition Height="80" />
+        </Grid.RowDefinitions>
+
+        <CollectionView x:Name="TVShowsView"
+                        SelectedItem="{Binding SelectedTVShow, Mode=TwoWay}"
+                        ItemsSource="{Binding TVShows}"
+                        SelectionMode="Single">
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate x:DataType="model:TVShow">
+
+                    <StackLayout Orientation="Vertical"
+                                 Margin="0">
+
+                        <Label Text="TV Show Entry"
+                               TextColor="Blue"
+                                FontSize="14"/>
+
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" WidthRequest="350">
+
+                            <Label Text="Name: " FontSize="16" VerticalOptions="CenterAndExpand" />
+                            <Entry Text="{Binding Name}"
+                                   FontSize="16"
+                                   Placeholder="TV Show name"
+                                   WidthRequest="300"
+                                   />
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" WidthRequest="350">
+
+                            <Label Text="Rating: " FontSize="16" VerticalOptions="CenterAndExpand" />
+                            <Entry Text="{Binding Rating}"
+                                   FontSize="16"
+                                   Placeholder="Your rating"
+                                   Keyboard="Numeric"
+                                   WidthRequest="80"
+                                   />
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" WidthRequest="350">
+
+                            <Label Text="Comment: " FontSize="16" VerticalOptions="CenterAndExpand" />
+                            <Editor Text="{Binding Comment}"
+                                   FontSize="16"
+                                   Placeholder="Your comments"
+                                   AutoSize="TextChanges"
+                                   WidthRequest="320"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" WidthRequest="371">
+                            <Label Text="Watch date: From " FontSize="16" VerticalOptions="CenterAndExpand" />
+
+                            <DatePicker Date="{Binding WatchDate1}" Format="dd-MM-yyyy" FontSize="16" VerticalOptions="CenterAndExpand" />
+                            <Label Text="to " FontSize="16" VerticalOptions="CenterAndExpand" />
+                            <DatePicker Date="{Binding WatchDate2}" Format="dd-MM-yyyy" FontSize="16" VerticalOptions="CenterAndExpand" />
+
+                        </StackLayout>
+
+                        <Label Text="-------------------------------------------------------------------------------------"
+                                FontSize="14"
+                               TextColor="Blue"/>           
+                    </StackLayout>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <ContentView>
+                    <VerticalStackLayout HorizontalOptions="Center"
+                                 VerticalOptions="Center">
+                        <Label Text="No TV Shows Found"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"/>
+                        <Label Text="You can use the Add New button below"/>
+                    </VerticalStackLayout>
+                </ContentView>
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+        <BoxView Color="Purple" Grid.Row="1" />
+
+
+        <StackLayout Orientation="Horizontal" Margin="0"
+             Spacing="20" Grid.Row="2" IsVisible="True">
+            <Button Text="Add New"
+                FontSize="18"
+                BackgroundColor="Aqua"
+                Command="{Binding AddNewCommand}"
+                IsVisible="{Binding AreFirstButtonsVisible}"
+                HeightRequest="50"
+                WidthRequest="178"/>
+
+            <Button Text="Save All"
+                FontSize="18"
+                BackgroundColor="DarkGreen"
+                Command="{Binding SaveAllCommand}"
+                IsVisible="{Binding AreFirstButtonsVisible}"
+                HeightRequest="50"
+                WidthRequest="178"/>
+
+
+
+            <Button Text="Save"
+            
+                FontSize="18"
+                BackgroundColor="Aqua"
+                Command="{Binding SaveSelectedCommand}"
+                IsVisible="{Binding AreButtonsVisible}"
+                WidthRequest="130"
+                HeightRequest="50"/>
+
+
+            <Button Text="Unselect"
+                BackgroundColor="Tomato"
+                FontSize="18"
+                Command="{Binding UnselectCommand}"
+                IsVisible="{Binding AreButtonsVisible}"
+                WidthRequest="130"
+                HeightRequest="50"/>
+            <Button Text="Delete"
+                FontSize="14"
+                BackgroundColor="Red"
+                Command="{Binding DeleteCommand}"
+                IsVisible="{Binding AreButtonsVisible}"
+                WidthRequest="70"
+                HeightRequest="40"/>
+
+        </StackLayout>
+
+
+
+
+
+
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp4.Views.AddMoviePage"
+             xmlns:viewmodel="clr-namespace:MauiApp4.ViewModels"
+             x:DataType="viewmodel:AddMovieViewModel"
+             Title="Add a new movie"
+             BackgroundColor="Tomato">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2"/>
+            <RowDefinition Height="80" />
+        </Grid.RowDefinitions>
+
+        
+
+                    <StackLayout Orientation="Vertical"
+                             Margin="10">
+
+                        <Label Text="Movie Entry"
+                            FontSize="14"
+                           TextColor="Blue"/>
+
+
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" WidthRequest="350">
+
+                            <Label Text="Name: " FontSize="16" VerticalOptions="CenterAndExpand" />
+                            <Entry x:Name="MovieNameEntry"
+                               Text="{Binding SelectedMovieName}"
+                               FontSize="16"
+                               Placeholder="Movie name"
+                               WidthRequest="300"
+                               TextChanged="OnMovieNameChanged" 
+                               />
+                        </StackLayout>
+
+           
+                        <ListView ItemsSource="{Binding AutoCompleteSuggestions}"
+                          IsVisible="{Binding IsAutoCompleteVisible}"
+                          ItemTapped="OnMovieSelected">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <TextCell Text="{Binding}" TextColor="DarkGreen"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+           
+
+            <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" WidthRequest="350">
+
+                            <Label Text="Rating: " FontSize="16" VerticalOptions="CenterAndExpand" />
+                            <Entry Text="{Binding MovieDetails.Rating}"
+                               FontSize="16"
+                               
+                               Keyboard="Numeric"
+                               WidthRequest="80"
+                               />
+                        </StackLayout>
+
+
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" WidthRequest="350">
+
+                            <Label Text="Comment: " FontSize="16" VerticalOptions="CenterAndExpand" />
+                            <Editor Text="{Binding MovieDetails.Comment}"
+                               FontSize="16"
+                               Placeholder="Your comments"
+                               AutoSize="TextChanges"
+                               WidthRequest="320"/>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" WidthRequest="350">
+                            <Label Text="Watch date:" FontSize="16" VerticalOptions="CenterAndExpand" />
+
+                            <DatePicker Date="{Binding MovieDetails.WatchDate}" Format="dd-MM-yyyy" FontSize="16" VerticalOptions="CenterAndExpand" />
+                        </StackLayout>
+
+                        
+
+                    </StackLayout>
+
+                
+
+        <BoxView Color="Purple" Grid.Row="1" />
+
+
+        <StackLayout Orientation="Horizontal" Spacing="320" Padding="0"
+                  Grid.Row="2" IsVisible="True">
+
+            <Label Text=" "/>
+
+            <Button Text="Save"
+                
+                FontSize="18"
+                BackgroundColor="Aqua"
+                Command="{Binding SaveCommand}"
+                Clicked="SaveButton_Clicked"
+                IsVisible="True"
+                WidthRequest="130"
+                HeightRequest="50"
+                    />
+                
+
+            
+
+        </StackLayout>
+
+
+
+
+
+    </Grid>
+</ContentPage>
